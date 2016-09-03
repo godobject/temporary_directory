@@ -3,9 +3,9 @@ Gem::Specification.new do |gem|
   gem.version = '0.1.0'
 
   gem.summary = 'A gem which does not contain specific metadata'
-  gem.description = <<~DESCRIPTION
-    This serves as an example for a gem NOT containing specific metadata
-    expected by the gem_metadata library.
+  gem.description = <<-DESCRIPTION
+This serves as an example for a gem NOT containing specific metadata
+expected by the gem_metadata library.
   DESCRIPTION
 
   gem.authors = ['Alexander E. Fischer']

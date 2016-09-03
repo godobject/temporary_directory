@@ -26,7 +26,7 @@ module GodObject
       end
 
       def ensure_absence_of_temporary_directory
-        @temporary_directory&.rmtree
+        @temporary_directory.rmtree if @temporary_directory
 
         nil
       end
