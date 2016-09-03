@@ -1,5 +1,5 @@
 When(/^I run "rspec ([^"]*)"$/) do |arguments|
-  create_gemfile(include_gems: %w{rspec})
+  create_gemfile(include_gems: %w(rspec))
   create_root_for_subsequent_temporary_directories
 
   execute_in_separate_environment(
