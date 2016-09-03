@@ -11,51 +11,14 @@ module GodObject
         end
 
         describe 'an object extended with the returned mixin module' do
-          describe '#temporary_directory' do
-            it 'requests a temporary directory through the temporary_directory_service' do
-              temporary_directory_service = instance_spy(Service, :temporary_directory_service)
-              result = described_class.new(temporary_directory_service: temporary_directory_service)
-              extended_object = build_object(mixin: result)
-
-              extended_object.temporary_directory
-
-              expect(temporary_directory_service).to have_received(:new).with(no_args)
-            end
-
-
-            it 'returns the pathname' do
-              temporary_directory_service = instance_double(Service, :temporary_directory_service)
-              temporary_directory_pathname = instance_double(Pathname, :temporary_directory_pathname)
-              allow(temporary_directory_service).to receive(:new).and_return(temporary_directory_pathname)
-              result = described_class.new(temporary_directory_service: temporary_directory_service)
-              extended_object = build_object(mixin: result)
-
-              result = extended_object.temporary_directory
-
-              expect(result).to be temporary_directory_pathname
-            end
-
-            it 'only once requests a temporary directory even when called multiple times' do
-              temporary_directory_service = instance_spy(Service, :temporary_directory_service)
-              result = described_class.new(temporary_directory_service: temporary_directory_service)
-              extended_object = build_object(mixin: result)
-
-              2.times do
-                extended_object.temporary_directory
-              end
-
-              expect(temporary_directory_service).to have_received(:new).with(no_args)
-            end
-          end
-
-          describe '#ensure_presence_of_temporary_directory' do
-            describe '#temporary_directory' do
+          [:temporary_directory, :ensure_presence_of_temporary_directory].each do |method|
+            describe "##{method}" do
               it 'requests a temporary directory through the temporary_directory_service' do
                 temporary_directory_service = instance_spy(Service, :temporary_directory_service)
                 result = described_class.new(temporary_directory_service: temporary_directory_service)
                 extended_object = build_object(mixin: result)
 
-                extended_object.ensure_presence_of_temporary_directory
+                extended_object.temporary_directory
 
                 expect(temporary_directory_service).to have_received(:new).with(no_args)
               end
@@ -68,7 +31,7 @@ module GodObject
                 result = described_class.new(temporary_directory_service: temporary_directory_service)
                 extended_object = build_object(mixin: result)
 
-                result = extended_object.ensure_presence_of_temporary_directory
+                result = extended_object.temporary_directory
 
                 expect(result).to be temporary_directory_pathname
               end
@@ -79,7 +42,7 @@ module GodObject
                 extended_object = build_object(mixin: result)
 
                 2.times do
-                  extended_object.ensure_presence_of_temporary_directory
+                  extended_object.temporary_directory
                 end
 
                 expect(temporary_directory_service).to have_received(:new).with(no_args)
