@@ -1,52 +1,52 @@
-require 'tmpdir'
-require 'pathname'
+require 'temporary_directory'
 require 'English'
 require 'rspec/collection_matchers'
 
+World(GodObject::TemporaryDirectory::Helper.new(prefix: 'temporary_directory_cucumber'))
+
 Before do
-  @temporary_directory = Pathname.new(Dir.mktmpdir('temporary_directory_cucumber'))
   @project_root_directory = Pathname.new(__dir__) / '..' / '..'
 end
 
 After do
-  @temporary_directory.rmtree
+  ensure_absence_of_temporary_directory
 end
 
 Given(/^a file called "([^"]*)" with the following content:$/) do |relative_path, file_content|
-  file = @temporary_directory / relative_path
+  file = temporary_directory / relative_path
   file.parent.mkpath
   file.write(file_content)
 end
 
 When(/^I run "rspec ([^"]*)"$/) do |arguments|
-  gemfile = @temporary_directory / 'Gemfile'
+  gemfile = temporary_directory / 'Gemfile'
   gemfile.write(<<~GEMFILE)
     gem 'temporary_directory', path: '#{@project_root_directory}'
     gem 'rspec', '= #{Gem.loaded_specs['rspec'].version}'
   GEMFILE
 
-  @subsequent_temporary_directory_root_directory = @temporary_directory / 'subsequent_temporary_directories'
+  @subsequent_temporary_directory_root_directory = temporary_directory / 'subsequent_temporary_directories'
   @subsequent_temporary_directory_root_directory.mkpath
 
   Bundler.with_clean_env do
-    Dir.chdir(@temporary_directory) do
+    Dir.chdir(temporary_directory) do
       @output = `TMPDIR="#{@subsequent_temporary_directory_root_directory}" bundle exec rspec #{arguments}`
     end
   end
 end
 
 When(/^I run "cucumber ?([^"]*)?"$/) do |arguments|
-  gemfile = @temporary_directory / 'Gemfile'
+  gemfile = temporary_directory / 'Gemfile'
   gemfile.write(<<~GEMFILE)
     gem 'temporary_directory', path: '#{@project_root_directory}'
     gem 'cucumber', '= #{Gem.loaded_specs['cucumber'].version}'
   GEMFILE
 
-  @subsequent_temporary_directory_root_directory = @temporary_directory / 'subsequent_temporary_directories'
+  @subsequent_temporary_directory_root_directory = temporary_directory / 'subsequent_temporary_directories'
   @subsequent_temporary_directory_root_directory.mkpath
 
   Bundler.with_clean_env do
-    Dir.chdir(@temporary_directory) do
+    Dir.chdir(temporary_directory) do
       @output = `TMPDIR="#{@subsequent_temporary_directory_root_directory}" bundle exec cucumber #{arguments}`
     end
   end

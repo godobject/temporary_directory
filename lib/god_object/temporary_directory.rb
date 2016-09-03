@@ -1,3 +1,6 @@
+require 'tmpdir'
+require 'pathname'
+
 module GodObject
   module TemporaryDirectory
 
