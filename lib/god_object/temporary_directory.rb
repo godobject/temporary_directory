@@ -7,4 +7,5 @@ module GodObject
   end
 end
 
+require_relative 'temporary_directory/service'
 require_relative 'temporary_directory/helper'
