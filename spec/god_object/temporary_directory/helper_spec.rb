@@ -146,10 +146,25 @@ module GodObject
                                            pathname_factory: pathname_factory)
               extended_object = build_object(mixin: result)
 
-              extended_object.temporary_directory
+              extended_object.ensure_presence_of_temporary_directory
               extended_object.ensure_absence_of_temporary_directory
 
               expect(temporary_directory_pathname).to have_received(:rmtree).with(no_args)
+            end
+
+            it 'does nothing if no temporary directory has been created before' do
+              temporary_directory_service = class_double(Dir, :temporary_directory_service).as_null_object
+              pathname_factory = class_double(Pathname, :pathname_factory)
+              temporary_directory_pathname = instance_spy(Pathname, :temporary_directory_pathname)
+              allow(pathname_factory).to receive(:new).and_return(temporary_directory_pathname)
+              result = described_class.new(prefix: build_prefix,
+                                           temporary_directory_service: temporary_directory_service,
+                                           pathname_factory: pathname_factory)
+              extended_object = build_object(mixin: result)
+
+              extended_object.ensure_absence_of_temporary_directory
+
+              expect(temporary_directory_pathname).not_to have_received(:rmtree)
             end
           end
         end

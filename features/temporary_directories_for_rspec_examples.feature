@@ -37,7 +37,7 @@ Feature: Temporary directories for RSpec examples
     """
     When I run "rspec temporary_directory_spec.rb"
     Then all examples should pass
-    And one temporary directories remains
+    And one temporary directory remains
 
   Scenario: Create directories with specific name prefixes
     Given a file called "temporary_directory_spec.rb" with the following content:
@@ -65,6 +65,9 @@ Feature: Temporary directories for RSpec examples
         include GodObject::TemporaryDirectory::Helper.new
 
         after(:example) { ensure_absence_of_temporary_directory }
+
+        specify { expect(123).to be_a Numeric }
+        specify { expect('abc').to be_a String }
 
         describe 'temporary directory' do
           subject { temporary_directory }
