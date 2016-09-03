@@ -58,7 +58,7 @@ Feature: Temporary directories for Cucumber
     """
       require 'temporary_directory'
 
-      World(GodObject::TemporaryDirectory::Helper.new(prefix: 'marker'))
+      World(GodObject::TemporaryDirectory::Helper.new(name_prefix: 'marker'))
     """
     When I run "cucumber"
     Then all scenarios and their steps should pass

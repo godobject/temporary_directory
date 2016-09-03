@@ -2,21 +2,16 @@ module GodObject
   module TemporaryDirectory
 
     module Helper
-      def self.new(prefix: nil, temporary_directory_service: Dir, pathname_factory: Pathname)
+      def self.new(name_prefix: nil,
+                   base_directory: nil,
+                   temporary_directory_service: Service.new(name_prefix: name_prefix, base_directory: base_directory))
+
         mixin = Module.new do
           include Helper
         end
 
-        mixin.send(:define_method, :temporary_directory_file_name_prefix) do
-          prefix
-        end
-
         mixin.send(:define_method, :temporary_directory_service) do
           temporary_directory_service
-        end
-
-        mixin.send(:define_method, :temporary_directory_pathname_factory) do
-          pathname_factory
         end
 
         mixin
@@ -39,8 +34,7 @@ module GodObject
       private
 
       def create_temporary_directory!
-        path = temporary_directory_service.mktmpdir(temporary_directory_file_name_prefix)
-        temporary_directory_pathname_factory.new(path)
+        temporary_directory_service.new
       end
     end
 

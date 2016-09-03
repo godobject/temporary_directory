@@ -45,7 +45,7 @@ Feature: Temporary directories for RSpec examples
       require 'temporary_directory'
 
       describe 'something' do
-        include GodObject::TemporaryDirectory::Helper.new(prefix: 'marker')
+        include GodObject::TemporaryDirectory::Helper.new(name_prefix: 'marker')
 
         before(:example) { ensure_presence_of_temporary_directory }
 
