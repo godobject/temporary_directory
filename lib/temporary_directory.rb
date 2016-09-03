@@ -1,0 +1,1 @@
+require_relative 'god_object/temporary_directory'
