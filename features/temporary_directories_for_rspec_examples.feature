@@ -76,7 +76,7 @@ Feature: Temporary directories for RSpec examples
 
           describe 'sub-directory' do
             let(:sub_directory) do
-              directory = temporary_directory / 'sub'
+              directory = temporary_directory + 'sub'
               directory.mkpath
               directory
             end
