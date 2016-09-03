@@ -6,7 +6,7 @@ Feature: Temporary directories for RSpec examples
       require 'temporary_directory'
 
       describe 'something' do
-        include GodObject::TemporaryDirectory::Helper.new
+        include GodObject::TemporaryDirectory::Helper
 
         before(:example) { ensure_presence_of_temporary_directory }
 
@@ -25,7 +25,7 @@ Feature: Temporary directories for RSpec examples
       require 'temporary_directory'
 
       describe 'something' do
-        include GodObject::TemporaryDirectory::Helper.new
+        include GodObject::TemporaryDirectory::Helper
 
         specify { expect(123).to be_a Numeric }
         specify { expect('abc').to be_a String }
@@ -62,7 +62,7 @@ Feature: Temporary directories for RSpec examples
       require 'temporary_directory'
 
       describe 'something' do
-        include GodObject::TemporaryDirectory::Helper.new
+        include GodObject::TemporaryDirectory::Helper
 
         after(:example) { ensure_absence_of_temporary_directory }
 

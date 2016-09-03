@@ -36,6 +36,10 @@ module GodObject
       def create_temporary_directory!
         temporary_directory_service.new
       end
+
+      def temporary_directory_service
+        @temporary_directory_service ||= Service.new
+      end
     end
 
   end

@@ -32,7 +32,7 @@ Feature: Temporary directories for Cucumber
     """
       require 'temporary_directory'
 
-      World(GodObject::TemporaryDirectory::Helper.new)
+      World(GodObject::TemporaryDirectory::Helper)
 
       Before do
         ensure_presence_of_temporary_directory
@@ -47,7 +47,7 @@ Feature: Temporary directories for Cucumber
     """
       require 'temporary_directory'
 
-      World(GodObject::TemporaryDirectory::Helper.new)
+      World(GodObject::TemporaryDirectory::Helper)
     """
     When I run "cucumber"
     Then all scenarios and their steps should pass
@@ -69,7 +69,7 @@ Feature: Temporary directories for Cucumber
     """
       require 'temporary_directory'
 
-      World(GodObject::TemporaryDirectory::Helper.new)
+      World(GodObject::TemporaryDirectory::Helper)
 
       After do
         ensure_absence_of_temporary_directory
