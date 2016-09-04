@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SubsequentTemporaryDirectoryRootDirectory
   attr_reader :subsequent_temporary_directory_root_directory
 

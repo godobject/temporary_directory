@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 When(/^I run "rspec ([^"]*)"$/) do |arguments|
   create_gemfile(include_gems: %w(rspec))
   create_root_for_subsequent_temporary_directories

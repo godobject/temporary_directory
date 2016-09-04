@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'temporary_directory'
 require 'rspec/collection_matchers'
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Then(/^no temporary directories remain$/) do
   expect(subsequent_temporary_directory_root_directory).to have(0).children
 end
